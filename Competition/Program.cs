@@ -1,15 +1,25 @@
 using Competition.Data;
+using Competition.Repositories;
+using Competition.Services;
 using Microsoft.AspNetCore.Connections;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add services to the container.
+builder.Services.AddControllersWithViews();
+
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<CompetitionDbContext>(options => options.UseSqlServer(connectionString));
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IInstitutionRepository, InstitutionRepository>();
+builder.Services.AddScoped<IParticipantRepository, ParticipantRepository>();
+
+builder.Services.AddScoped<IParticipantService, ParticipantService>();
+builder.Services.AddScoped<IInstitutionService, InstitutionService>();
+
 
 var app = builder.Build();
 
