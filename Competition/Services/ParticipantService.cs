@@ -22,7 +22,7 @@ namespace Competition.Services
          _repository.RemoveParticipant(id);
       }
 
-      public IEnumerable<Participant> GetAllParticipant()
+      public IEnumerable<Participant> GetAllParticipants()
       {
          return _repository.GetAllParticipants();
       }
