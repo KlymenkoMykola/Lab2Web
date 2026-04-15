@@ -7,7 +7,7 @@ namespace Competition.Services
    {
       private readonly IParticipantRepository _repository;
 
-      ParticipantService(IParticipantRepository repository)
+      public ParticipantService(IParticipantRepository repository)
       {
          _repository = repository;
       }

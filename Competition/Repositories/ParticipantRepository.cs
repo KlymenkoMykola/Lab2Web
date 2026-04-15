@@ -16,6 +16,7 @@ namespace Competition.Repositories
       public void AddParticipant(Participant participant)
       {
          _context.Participants.Add(participant);
+         _context.SaveChanges();
       }
 
       public IEnumerable<Participant> GetAllParticipants()
