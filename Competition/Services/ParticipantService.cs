@@ -14,6 +14,18 @@ namespace Competition.Services
 
       public void CreateParticipant(Participant participant)
       {
+         var existingParticipants = _repository.GetAllParticipants();
+
+         bool isDuplicate = existingParticipants.Any(p => 
+         p.FirstName.ToLower() == participant.FirstName.ToLower() &&
+         p.LastName.ToLower() == participant.LastName.ToLower() &&
+         p.InstitutionId == participant.InstitutionId);
+
+         if (isDuplicate)
+         {
+            throw new ArgumentException("Спортсмен з таким ім'ям та прізвищем вже зареєстрований від цього навчального закладу!");
+         }
+
          _repository.AddParticipant(participant);
       }
 
@@ -22,9 +34,21 @@ namespace Competition.Services
          _repository.RemoveParticipant(id);
       }
 
-      public IEnumerable<Participant> GetAllParticipants()
+      public IEnumerable<Participant> GetAllParticipants(string searchString = null)
       {
-         return _repository.GetAllParticipants();
+         var participants = _repository.GetAllParticipants();
+
+         if (!string.IsNullOrEmpty(searchString))
+         {
+            participants = participants.Where(p =>
+            p.LastName.Contains(searchString, StringComparison.OrdinalIgnoreCase));
+         }
+
+         return participants
+            .OrderBy(p => p.TotalScore)
+            .ThenBy(p => p.LastName)
+            .ToList();
+
       }
 
       public Participant GetParticipantById(int id)

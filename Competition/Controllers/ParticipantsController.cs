@@ -16,9 +16,10 @@ namespace Competition.Controllers
          _participantService = participantService;
       }
 
-      public IActionResult Index()
+      public IActionResult Index(string searchString)
       {
-         var participants = _participantService.GetAllParticipants();
+         ViewData["CurrentFilter"] = searchString;
+         var participants = _participantService.GetAllParticipants(searchString);
          return View(participants);
       }
 
@@ -35,8 +36,15 @@ namespace Competition.Controllers
 
          if (ModelState.IsValid)
          {
-            _participantService.CreateParticipant(participant);
-            return RedirectToAction(nameof(Index));
+            try
+            {
+               _participantService.CreateParticipant(participant);
+               return RedirectToAction(nameof(Index));
+            }
+            catch (ArgumentException ex)
+            {
+               ModelState.AddModelError(string.Empty, ex.Message);
+            }
          }
 
          var institutions = _institutionService.GetAllInstitutions();

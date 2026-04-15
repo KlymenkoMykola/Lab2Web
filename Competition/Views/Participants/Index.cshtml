@@ -8,10 +8,32 @@
     <a asp-action="Create" class="mb-3 btn btn-primary">
         + Додати нового учасника
     </a>
+    <form asp-action="Index" method="get" class="mb-4">
+        <div class="row align-items-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="input-group shadow-sm">
+                    <input type="text" name="searchString" value="@ViewData["CurrentFilter"]"
+                           class="form-control border-secondary" placeholder="Пошук за прізвищем..." />
+
+                    <button type="submit" class="btn btn-secondary">
+                        <i class="bi bi-search"></i> Знайти
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                @if (!string.IsNullOrEmpty(ViewData["CurrentFilter"]?.ToString()))
+                {
+                    <a asp-action="Index" class="btn btn-link text-decoration-none text-muted">
+                        <i class="bi bi-x-circle"></i> Скинути пошук
+                    </a>
+                }
+            </div>
+        </div>
+    </form>
 
     <div class="table-responsive shadow-sm rounded" style="max-height: 500px; overflow-y: auto;">
 
-        <table class="table table-bordered table-hover mb-0" style="border-color: #b0bec5;">
+        <table class="table table-bordered table-hover mb-0 align-middle" style="border-color: #b0bec5;">
 
             <thead class="table-dark" style="position: sticky; top: 0; z-index: 1;">
                 <tr>
@@ -25,7 +47,7 @@
                     <th>Дії</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody">
                 @foreach (var item in Model)
                 {
                     <tr>
@@ -39,13 +61,13 @@
 
                         <td style="background-color: #fffde6;" class="text-success fw-bold">@item.TotalScore кг</td>
 
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning" title="Редагувати">
-                                <i class="bi bi-pencil-square"></i>
+                        <td class="text-nowrap">
+                            <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-sm btn-outline-warning" title="Редагувати">
+                                <i class="bi bi-pencil-square" style="pointer-events: none;"></i>
                             </a>
 
-                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger" title="Видалити">
-                                <i class="bi bi-trash3"></i>
+                            <a href="@Url.Action("Delete", new { id = item.Id })" class="btn btn-sm btn-outline-danger" title="Видалити">
+                                <i class="bi bi-trash3" style="pointer-events: none;"></i>
                             </a>
                         </td>
                     </tr>

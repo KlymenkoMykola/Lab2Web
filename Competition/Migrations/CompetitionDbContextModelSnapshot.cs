@@ -39,7 +39,7 @@ namespace Competition.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Institutions");
+                    b.ToTable("Institutions", (string)null);
 
                     b.HasData(
                         new
@@ -120,7 +120,7 @@ namespace Competition.Migrations
 
                     b.HasIndex("InstitutionId");
 
-                    b.ToTable("Participants");
+                    b.ToTable("Participants", (string)null);
                 });
 
             modelBuilder.Entity("Competition.Models.Participant", b =>
