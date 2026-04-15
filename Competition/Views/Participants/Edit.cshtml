@@ -1,0 +1,81 @@
+﻿@model Participant
+@{
+    ViewData["Title"] = "Редагувати учасника";
+}
+
+<div class="container mt-4">
+    <h2>Редагувати дані учасника</h2>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-8">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <input type="hidden" asp-for="Id" />
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="LastName" class="form-label">Прізвище</label>
+                        <input asp-for="LastName" class="form-control" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="FirstName" class="form-label">Ім'я</label>
+                        <input asp-for="FirstName" class="form-control" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="MiddleName" class="form-label">По батькові</label>
+                        <input asp-for="MiddleName" class="form-control" />
+                        <span asp-validation-for="MiddleName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="InstitutionId" class="form-label">Навчальний заклад</label>
+                        <select asp-for="InstitutionId" class="form-select" asp-items="ViewBag.Institutions">
+                            <option value="">-- Оберіть навчальний заклад --</option>
+                        </select>
+                        <span asp-validation-for="InstitutionId" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="CoachName" class="form-label">ПІБ Тренера</label>
+                        <input asp-for="CoachName" class="form-control" />
+                        <span asp-validation-for="CoachName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Squat" class="form-label">Присяд (кг)</label>
+                        <input asp-for="Squat" class="form-control" type="number" step="0.5" />
+                        <span asp-validation-for="Squat" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="BenchPress" class="form-label">Жим лежачи (кг)</label>
+                        <input asp-for="BenchPress" class="form-control" type="number" step="0.5" />
+                        <span asp-validation-for="BenchPress" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Deadlift" class="form-label">Станова тяга (кг)</label>
+                        <input asp-for="Deadlift" class="form-control" type="number" step="0.5" />
+                        <span asp-validation-for="Deadlift" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-warning me-2">Зберегти зміни</button>
+                    <a asp-action="Index" class="btn btn-secondary">Скасувати</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

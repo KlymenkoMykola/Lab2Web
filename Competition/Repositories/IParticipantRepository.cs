@@ -8,6 +8,6 @@ namespace Competition.Repositories
       Participant GetParticipantById(int id);
       void AddParticipant(Participant participant);
       void RemoveParticipant(int id);
-      void UpdateParticipant(Participant participant);
+      void EditParticipant(Participant participant);
    }
 }

@@ -35,7 +35,7 @@ namespace Competition.Models
       public float Deadlift { get; set; }
 
       [NotMapped]
-      public float TotalScore => Squat + Deadlift + Deadlift;
+      public float TotalScore => Squat + Deadlift + BenchPress;
 
       [Required(ErrorMessage = "Оберіть навчальний заклад")]
       public int InstitutionId { get; set; }

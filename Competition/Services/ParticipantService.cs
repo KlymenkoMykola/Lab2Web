@@ -32,9 +32,9 @@ namespace Competition.Services
          return _repository.GetParticipantById(id);
       }
 
-      public void UpdateParticipant(Participant participant)
+      public void EditParticipant(Participant participant)
       {
-         _repository.UpdateParticipant(participant);
+         _repository.EditParticipant(participant);
       }
    }
 }

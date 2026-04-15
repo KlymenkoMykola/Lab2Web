@@ -43,5 +43,58 @@ namespace Competition.Controllers
          ViewBag.Institutions = new SelectList(institutions, "Id", "Name");
          return View(participant);
       }
+
+      public IActionResult Delete(int id)
+      {
+         var participant = _participantService.GetParticipantById(id);
+
+         if(participant == null)
+         {
+            return NotFound();
+         }
+         return View(participant);
+      }
+
+      [HttpPost, ActionName("Delete")]
+      public IActionResult DeleteConfirmed(int id)
+      {
+         _participantService.DeleteParticipant(id);
+         return RedirectToAction(nameof(Index));
+      }
+
+      public IActionResult Edit(int id)
+      {
+         var participant = _participantService.GetParticipantById(id);
+
+         if(participant == null)
+         {
+            return NotFound();
+         }
+
+         var institutions = _institutionService.GetAllInstitutions();
+         ViewBag.Institutions = new SelectList(institutions, "Id", "Name", participant.InstitutionId);
+
+         return View(participant);
+      }
+
+      [HttpPost]
+      public IActionResult Edit(int id, Participant participant)
+      {
+         if(id != participant.Id)
+         {
+            return NotFound();
+         }
+
+         if (ModelState.IsValid)
+         {
+            _participantService.EditParticipant(participant);
+            return RedirectToAction(nameof(Index));
+         }
+
+         var institutions = _institutionService.GetAllInstitutions();
+         ViewBag.Institutions = new SelectList(institutions, "Id", "Name", participant.InstitutionId);
+
+         return View(participant);
+      }
    }
 }

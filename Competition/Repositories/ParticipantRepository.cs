@@ -39,7 +39,7 @@ namespace Competition.Repositories
          }
       }
 
-      public void UpdateParticipant(Participant participant)
+      public void EditParticipant(Participant participant)
       {
          _context.Participants.Update(participant);
          _context.SaveChanges();
